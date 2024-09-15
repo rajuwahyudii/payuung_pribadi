@@ -49,7 +49,7 @@ class ProfileView extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          _user.tanggalLahir ?? 'No Name',
+                          _user.nama ?? 'No Name',
                           style: const TextStyle(
                             fontWeight: FontWeight.w700,
                             fontSize: 18,
