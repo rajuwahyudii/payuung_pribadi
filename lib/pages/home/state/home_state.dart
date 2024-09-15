@@ -3,8 +3,10 @@ import 'package:payuung_pribadi/pages/home/model/explore_wellness_model.dart';
 import 'package:payuung_pribadi/pages/home/model/kategori_pilihan_model.dart';
 import 'package:payuung_pribadi/pages/home/model/produk_keuangan_model.dart';
 import 'package:payuung_pribadi/pages/home/model/user_model.dart';
+import 'package:payuung_pribadi/pages/informasi/models/alamat_pribadi_payload.dart';
 import 'package:payuung_pribadi/pages/informasi/models/data_perusahaan_payload.dart';
 import 'package:payuung_pribadi/pages/informasi/models/informasi_pribadi_payload.dart';
+import 'package:payuung_pribadi/shared/widgets/mollecules/alamat_pribadi.dart';
 import 'package:provider/provider.dart';
 
 class HomeState extends ChangeNotifier {
@@ -30,6 +32,18 @@ class HomeState extends ChangeNotifier {
     _user.noHP = user.noHP;
     _user.pendidikan = user.pendidikan;
     _user.statusPernikahan = user.statusPernikahan;
+
+    notifyListeners();
+  }
+
+  setAlamatPribadi(AlamatPribadiPayload user) {
+    _user.alamat = user.alamat;
+    _user.nik = user.nik;
+    _user.provinsi = user.provinsi;
+    _user.kota = user.kota;
+    _user.kecamatan = user.kecamatan;
+    _user.kelurahan = user.kelurahan;
+    _user.kodePos = user.kodePos;
 
     notifyListeners();
   }

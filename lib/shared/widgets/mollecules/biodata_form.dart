@@ -10,6 +10,7 @@ import 'package:payuung_pribadi/pages/informasi/view_model/infromasi_view_model.
 import 'package:payuung_pribadi/shared/screen_size.dart';
 import 'package:payuung_pribadi/shared/widgets/atoms/button_widget.dart';
 import 'package:payuung_pribadi/shared/widgets/atoms/search.dart';
+import 'package:payuung_pribadi/shared/widgets/mollecules/alert.dart';
 
 class BiodataForm extends StatelessWidget {
   BiodataForm({
@@ -28,7 +29,6 @@ class BiodataForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // _user = HomeState.watch(context).user;
     jk = InformasiState.watch(context).jk;
     pendidikan = InformasiState.watch(context).pendidikan;
     status = InformasiState.watch(context).status;
@@ -160,6 +160,7 @@ class BiodataForm extends StatelessWidget {
                       child: Text(item),
                     );
                   }).toList(),
+                  underline: const SizedBox(),
                 ),
               ),
             ],
@@ -211,6 +212,7 @@ class BiodataForm extends StatelessWidget {
                       child: Text(item),
                     );
                   }).toList(),
+                  underline: const SizedBox(),
                 ),
               ),
             ],
@@ -249,26 +251,42 @@ class BiodataForm extends StatelessWidget {
                       child: Text(item),
                     );
                   }).toList(),
+                  underline: const SizedBox(),
                 ),
               ),
             ],
           ),
           ButtonWidget(
-            onTap: () {
-              getIt<InfromasiViewModel>().doUpdateInformasiPribadi(
-                context,
-                InformasiPribadiPayload(
-                  pendidikan: pendidikanSelected,
-                  statusPernikahan: statusSelected,
-                  tanggalLahir:
-                      tanggalLahirSelected.toString().substring(0, 10),
-                  jenisKelamin: jkSelected,
-                  nama: namaController.text,
-                  email: emailController.text,
-                  noHP: noHpController.text,
-                ),
-              );
-              InformasiState.read(context).setId(1);
+            onTap: () async {
+              if (namaController.text != '' &&
+                  emailController.text != '' &&
+                  jkSelected != '' &&
+                  pendidikanSelected != '' &&
+                  noHpController.text != '') {
+                getIt<InfromasiViewModel>().doUpdateInformasiPribadi(
+                  context,
+                  InformasiPribadiPayload(
+                    pendidikan: pendidikanSelected,
+                    statusPernikahan: statusSelected,
+                    tanggalLahir:
+                        tanggalLahirSelected.toString().substring(0, 10),
+                    jenisKelamin: jkSelected,
+                    nama: namaController.text,
+                    email: emailController.text,
+                    noHP: noHpController.text,
+                  ),
+                );
+                InformasiState.read(context).setId(1);
+                await successAlert(
+                  context,
+                  'Berhasil Update Biodata',
+                );
+              } else {
+                await failedAlert(
+                  context,
+                  'Data Tidak Lengkap',
+                );
+              }
             },
             label: 'Selanjutnya',
             width: getWidth(context),

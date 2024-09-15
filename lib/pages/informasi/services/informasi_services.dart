@@ -1,7 +1,9 @@
 import 'package:intl/intl.dart';
 import 'package:payuung_pribadi/pages/home/state/home_state.dart';
+import 'package:payuung_pribadi/pages/informasi/models/alamat_pribadi_payload.dart';
 import 'package:payuung_pribadi/pages/informasi/models/data_perusahaan_payload.dart';
 import 'package:payuung_pribadi/pages/informasi/models/informasi_pribadi_payload.dart';
+import 'package:payuung_pribadi/shared/widgets/mollecules/alamat_pribadi.dart';
 
 class InformasiServices {
   Future<String> reformatDate(String date) async {
@@ -17,6 +19,17 @@ class InformasiServices {
     try {
       HomeState.read(context).setInfromasiPribadi(payload);
       print(HomeState.watch(context).user.nama);
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
+
+  Future<bool> updateAlamatPribadi(
+      context, AlamatPribadiPayload payload) async {
+    try {
+      HomeState.read(context).setAlamatPribadi(payload);
+      print(HomeState.watch(context).user.kodePos);
       return true;
     } catch (e) {
       return false;

@@ -6,6 +6,7 @@ import 'package:payuung_pribadi/router/routes.dart';
 import 'package:payuung_pribadi/shared/screen_size.dart';
 import 'package:payuung_pribadi/shared/widgets/atoms/menu_profile.dart';
 import 'package:payuung_pribadi/shared/widgets/atoms/title_appbar.dart';
+import 'package:payuung_pribadi/shared/widgets/mollecules/alert.dart';
 
 class ProfileView extends StatelessWidget {
   ProfileView({super.key});
@@ -31,14 +32,26 @@ class ProfileView extends StatelessWidget {
                 ),
                 child: Row(
                   children: [
-                    CircleAvatar(
-                      radius: 30,
-                      backgroundColor: Colors.grey[300],
-                      child: Text(
-                        'A',
-                        style: const TextStyle(
-                          fontSize: 24,
-                          color: Colors.white,
+                    GestureDetector(
+                      onTap: () async {
+                        await doubleAlert(
+                          context,
+                          onPressedLeft: () {},
+                          onPressedRight: () {},
+                          title: 'Ganti Gambar?',
+                          titleButtonLeft: 'Camera',
+                          titleButtonRight: 'Gambar',
+                        );
+                      },
+                      child: CircleAvatar(
+                        radius: 30,
+                        backgroundColor: Colors.grey[300],
+                        child: Text(
+                          'A',
+                          style: const TextStyle(
+                            fontSize: 24,
+                            color: Colors.white,
+                          ),
                         ),
                       ),
                     ),
