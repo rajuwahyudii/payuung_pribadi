@@ -1,4 +1,6 @@
+import 'package:date_picker_plus/date_picker_plus.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:payuung_pribadi/package/get_it.dart';
 import 'package:payuung_pribadi/pages/home/model/user_model.dart';
 import 'package:payuung_pribadi/pages/home/state/home_state.dart';
@@ -34,6 +36,8 @@ class BiodataForm extends StatelessWidget {
     String pendidikanSelected =
         InformasiState.watch(context).pendidikanSelected;
     String statusSelected = InformasiState.watch(context).statusSelected;
+    DateTime tanggalLahirSelected =
+        InformasiState.watch(context).selectedTanggalLahir;
 
     return SingleChildScrollView(
       child: Column(
@@ -44,8 +48,83 @@ class BiodataForm extends StatelessWidget {
             controller: namaController,
             keyboardType: TextInputType.name,
           ),
-          MyTextFormField(
-            label: 'Tanggal Lahir',
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                margin: const EdgeInsets.symmetric(
+                  vertical: 10,
+                ),
+                child: const Text(
+                  'Tanggal Lahir',
+                ),
+              ),
+              GestureDetector(
+                onTap: () async {
+                  DateTime? pickedDate = await showDatePickerDialog(
+                    context: context,
+                    initialDate: tanggalLahirSelected,
+                    minDate: DateTime(1970, 10, 10),
+                    maxDate: DateTime.now(),
+                    width: 300,
+                    height: 300,
+                    currentDate: DateTime.now(),
+                    selectedDate: tanggalLahirSelected,
+                    currentDateDecoration: const BoxDecoration(),
+                    currentDateTextStyle: const TextStyle(),
+                    daysOfTheWeekTextStyle: const TextStyle(),
+                    disabledCellsTextStyle: const TextStyle(),
+                    enabledCellsDecoration: const BoxDecoration(),
+                    enabledCellsTextStyle: const TextStyle(),
+                    initialPickerType: PickerType.days,
+                    selectedCellDecoration: const BoxDecoration(),
+                    selectedCellTextStyle: const TextStyle(),
+                    leadingDateTextStyle: const TextStyle(),
+                    slidersColor: Colors.lightBlue,
+                    highlightColor: Colors.redAccent,
+                    slidersSize: 20,
+                    splashColor: Colors.lightBlueAccent,
+                    splashRadius: 40,
+                    centerLeadingDate: true,
+                  );
+                  if (pickedDate != null) {
+                    print(pickedDate);
+                    InformasiState.read(context)
+                        .setSelectedTanggalLahir(pickedDate);
+                  }
+                },
+                child: Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 10,
+                    vertical: 10,
+                  ),
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      color: Colors.grey,
+                    ),
+                    borderRadius: BorderRadius.circular(
+                      6,
+                    ),
+                    color: Colors.white,
+                  ),
+                  width: getWidth(context),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        DateFormat('yyyy-MM-dd')
+                            .parse(tanggalLahirSelected.toString())
+                            .toString()
+                            .substring(0, 10),
+                      ),
+                      const Icon(
+                        Icons.date_range,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
           ),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -181,6 +260,8 @@ class BiodataForm extends StatelessWidget {
                 InformasiPribadiPayload(
                   pendidikan: pendidikanSelected,
                   statusPernikahan: statusSelected,
+                  tanggalLahir:
+                      tanggalLahirSelected.toString().substring(0, 10),
                   jenisKelamin: jkSelected,
                   nama: namaController.text,
                   email: emailController.text,

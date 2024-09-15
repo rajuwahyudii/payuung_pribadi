@@ -81,6 +81,13 @@ class InformasiState extends ChangeNotifier {
     notifyListeners();
   }
 
+  DateTime _selectedTanggalLahir = DateTime(2024, 9, 9);
+  DateTime get selectedTanggalLahir => _selectedTanggalLahir;
+  setSelectedTanggalLahir(DateTime date) {
+    _selectedTanggalLahir = date;
+    notifyListeners();
+  }
+
   static InformasiState read(context) {
     InformasiState providers = Provider.of<InformasiState>(
       context,
