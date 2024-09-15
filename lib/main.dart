@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:payuung_pribadi/package/get_it.dart';
 import 'package:payuung_pribadi/pages/home/state/home_state.dart';
+import 'package:payuung_pribadi/pages/informasi/state/informasi_state.dart';
 import 'package:payuung_pribadi/router/router.dart';
 import 'package:provider/provider.dart';
 
-void main() {
+void main() async {
+  configureDependencies();
   runApp(const MyApp());
 }
 
@@ -16,6 +19,9 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider<HomeState>(
           create: (_) => HomeState(),
+        ),
+        ChangeNotifierProvider<InformasiState>(
+          create: (_) => InformasiState(),
         ),
       ],
       child: MaterialApp.router(

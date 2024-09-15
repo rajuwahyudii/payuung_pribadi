@@ -21,7 +21,6 @@ class MenuWidget extends StatelessWidget {
             label: label,
           ),
           Container(
-            height: 100,
             child: widget,
           ),
         ],

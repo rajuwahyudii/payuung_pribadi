@@ -20,12 +20,12 @@ final router = GoRouter(
           GoRoute(
             path: RouteString.profile,
             name: RouteString.profile,
-            builder: (_, __) => const ProfileView(),
+            builder: (_, __) => ProfileView(),
           ),
           GoRoute(
             path: RouteString.informasi,
             name: RouteString.informasi,
-            builder: (_, __) => const InformasiView(),
+            builder: (_, __) => InformasiView(),
           ),
         ]),
   ],

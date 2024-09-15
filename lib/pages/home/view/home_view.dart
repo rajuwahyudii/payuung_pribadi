@@ -1,26 +1,42 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:payuung_pribadi/constant/style/color.dart';
+import 'package:payuung_pribadi/package/get_it.dart';
+import 'package:payuung_pribadi/pages/home/model/explore_wellness_model.dart';
+import 'package:payuung_pribadi/pages/home/model/kategori_pilihan_model.dart';
+import 'package:payuung_pribadi/pages/home/model/produk_keuangan_model.dart';
+import 'package:payuung_pribadi/pages/home/model/user_model.dart';
 import 'package:payuung_pribadi/pages/home/state/home_state.dart';
+import 'package:payuung_pribadi/pages/home/view_model/home_view_model.dart';
 import 'package:payuung_pribadi/router/routes.dart';
 import 'package:payuung_pribadi/shared/screen_size.dart';
-import 'package:payuung_pribadi/shared/widgets/atoms/icon_button_navigation.dart';
+import 'package:payuung_pribadi/shared/widgets/atoms/icon_images.dart';
 import 'package:payuung_pribadi/shared/widgets/atoms/icon_menu.dart';
-import 'package:payuung_pribadi/shared/widgets/atoms/label_menu.dart';
 import 'package:payuung_pribadi/shared/widgets/mollecules/menu_widget.dart';
 
 class HomeView extends StatelessWidget {
   HomeView({super.key});
   int _selectedIndex = 0;
   bool _isExpanded = false;
+  ModelUser _user = ModelUser();
+  List<ModelProdukKeuangan> _produkKeuangan = [];
+  List<ModelKategoriKeuangan> _kategoriKeuangan = [];
+  List<ModelExploreWellness> _exploreWillness = [];
+
   @override
   Widget build(BuildContext context) {
     _selectedIndex = HomeState.watch(context).index;
+    _produkKeuangan = HomeState.watch(context).produkKeuangan;
+    _kategoriKeuangan = HomeState.watch(context).kategoriKeuangan;
+    _exploreWillness = HomeState.watch(context).exploreWillness;
+    _user = HomeState.watch(context).user;
+
     return Scaffold(
       backgroundColor: MyColor.yellowColor,
       appBar: AppBar(
         backgroundColor: MyColor.yellowColor,
         title: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
               'Selamat Malam',
@@ -29,11 +45,21 @@ class HomeView extends StatelessWidget {
                 color: Colors.white,
               ),
             ),
+            Text(
+              _user.nama ?? '',
+              style: GoogleFonts.poppins(
+                fontSize: 12,
+                color: Colors.white,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
           ],
         ),
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              // getIt<HomeViewModel>().doGetData(context, 'user');
+            },
             icon: const Icon(
               Icons.notifications_outlined,
               color: Colors.white,
@@ -41,6 +67,7 @@ class HomeView extends StatelessWidget {
           ),
           IconButton(
             onPressed: () {
+              // getIt<HomeViewModel>().doInsertData(context);
               Routes.goProfile();
             },
             icon: const Icon(
@@ -52,45 +79,83 @@ class HomeView extends StatelessWidget {
       ),
       body: Stack(
         children: [
-          Container(
-            width: getWidth(context),
-            decoration: const BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(
-                  20,
-                ),
-                topRight: Radius.circular(
-                  20,
-                ),
-              ),
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                MenuWidget(
-                  label: 'Produk Keuangan',
-                  widget: GridView.count(
-                    crossAxisCount: 4,
-                    childAspectRatio: 1.0,
-                    padding: EdgeInsets.all(16.0),
-                    mainAxisSpacing: 16.0,
-                    crossAxisSpacing: 16.0,
-                    children: List.generate(10, (index) {
-                      return IconMenu(
-                        icon: 'assets/icons/family.svg',
-                        label: 'Menu',
-                      );
-                    }),
+          SingleChildScrollView(
+            child: Container(
+              width: getWidth(context),
+              decoration: const BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(
+                    20,
+                  ),
+                  topRight: Radius.circular(
+                    20,
                   ),
                 ),
-                MenuWidget(
-                  label: 'Kategori Pilihan',
-                ),
-                MenuWidget(
-                  label: 'Explore Wellness',
-                ),
-              ],
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  MenuWidget(
+                    label: 'Produk Keuangan',
+                    widget: GridView.count(
+                      physics: const ClampingScrollPhysics(),
+                      shrinkWrap: true,
+                      crossAxisCount: 4,
+                      childAspectRatio: 1.0,
+                      padding: EdgeInsets.all(16.0),
+                      mainAxisSpacing: 16.0,
+                      crossAxisSpacing: 16.0,
+                      children: List.generate(_produkKeuangan.length, (index) {
+                        return IconMenu(
+                          icon: 'assets/icons/family.svg',
+                          label: _produkKeuangan[index].label!,
+                        );
+                      }),
+                    ),
+                  ),
+                  MenuWidget(
+                    label: 'Kategori Pilihan',
+                    widget: GridView.count(
+                      physics: const ClampingScrollPhysics(),
+                      shrinkWrap: true,
+                      crossAxisCount: 4,
+                      childAspectRatio: 1.0,
+                      padding: EdgeInsets.all(16.0),
+                      mainAxisSpacing: 16.0,
+                      crossAxisSpacing: 16.0,
+                      children:
+                          List.generate(_kategoriKeuangan.length, (index) {
+                        return IconMenu(
+                          icon: 'assets/icons/family.svg',
+                          label: _kategoriKeuangan[index].label!,
+                        );
+                      }),
+                    ),
+                  ),
+                  MenuWidget(
+                    label: 'Explore Wellness',
+                    widget: GridView.count(
+                      physics: const ClampingScrollPhysics(),
+                      shrinkWrap: true,
+                      crossAxisCount: 2,
+                      childAspectRatio: 1.0,
+                      padding: EdgeInsets.all(16.0),
+                      mainAxisSpacing: 16.0,
+                      crossAxisSpacing: 16.0,
+                      children: List.generate(_exploreWillness.length, (index) {
+                        return IconImage(
+                          image: _exploreWillness[index].icon!,
+                          label: _exploreWillness[index].label!,
+                        );
+                      }),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 60,
+                  )
+                ],
+              ),
             ),
           ),
           Positioned(
@@ -135,8 +200,8 @@ class HomeView extends StatelessWidget {
                 // Bottom navigation bar
                 Container(
                   height: 60,
-                  decoration: const BoxDecoration(
-                    color: Colors.white,
+                  decoration: BoxDecoration(
+                    color: Colors.grey[200],
                   ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
