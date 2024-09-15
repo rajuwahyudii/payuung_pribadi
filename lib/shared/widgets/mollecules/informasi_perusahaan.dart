@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:payuung_pribadi/pages/informasi/state/informasi_state.dart';
+import 'package:payuung_pribadi/shared/screen_size.dart';
+import 'package:payuung_pribadi/shared/widgets/atoms/button_widget.dart';
 import 'package:payuung_pribadi/shared/widgets/atoms/search.dart';
 
 class InformasiPerusahaanForm extends StatelessWidget {
@@ -38,6 +41,25 @@ class InformasiPerusahaanForm extends StatelessWidget {
           ),
           MyTextFormField(
             label: 'Nama Pemilik Rekening',
+          ),
+          ButtonWidget(
+            onTap: () {
+              // getIt<InfromasiViewModel>().doUpdateInformasiPribadi(
+              //   context,
+              //   InformasiPribadiPayload(
+              //     pendidikan: pendidikanSelected,
+              //     statusPernikahan: statusSelected,
+              //     jenisKelamin: jkSelected,
+              //     nama: namaController.text,
+              //     email: emailController.text,
+              //     noHP: noHpController.text,
+              //   ),
+              // );
+              Navigator.pop(context);
+            },
+            label: 'Simpan',
+            width: getWidth(context),
+            height: 60,
           ),
         ],
       ),

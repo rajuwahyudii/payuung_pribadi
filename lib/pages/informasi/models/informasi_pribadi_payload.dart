@@ -1,4 +1,4 @@
-class ModelUser {
+class InformasiPribadiPayload {
   String? nama;
   String? tanggalLahir;
   String? jenisKelamin;
@@ -7,7 +7,7 @@ class ModelUser {
   String? pendidikan;
   String? statusPernikahan;
 
-  ModelUser({
+  InformasiPribadiPayload({
     this.nama,
     this.tanggalLahir,
     this.jenisKelamin,
@@ -17,7 +17,8 @@ class ModelUser {
     this.statusPernikahan,
   });
 
-  factory ModelUser.fromJson(Map<String, dynamic> json) => ModelUser(
+  factory InformasiPribadiPayload.fromJson(Map<String, dynamic> json) =>
+      InformasiPribadiPayload(
         nama: json["nama"],
         tanggalLahir: json["tanggalLahir"],
         jenisKelamin: json["jenisKelamin"],

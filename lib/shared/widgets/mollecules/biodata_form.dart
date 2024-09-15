@@ -1,25 +1,39 @@
 import 'package:flutter/material.dart';
+import 'package:payuung_pribadi/package/get_it.dart';
 import 'package:payuung_pribadi/pages/home/model/user_model.dart';
 import 'package:payuung_pribadi/pages/home/state/home_state.dart';
+import 'package:payuung_pribadi/pages/informasi/models/informasi_pribadi_payload.dart';
 import 'package:payuung_pribadi/pages/informasi/state/informasi_state.dart';
+import 'package:payuung_pribadi/pages/informasi/view_model/infromasi_view_model.dart';
 import 'package:payuung_pribadi/shared/screen_size.dart';
 import 'package:payuung_pribadi/shared/widgets/atoms/button_widget.dart';
 import 'package:payuung_pribadi/shared/widgets/atoms/search.dart';
 
 class BiodataForm extends StatelessWidget {
-  BiodataForm({super.key});
+  BiodataForm({
+    required this.emailController,
+    required this.namaController,
+    required this.noHpController,
+    super.key,
+  });
   ModelUser _user = ModelUser();
-  final TextEditingController _namaController = TextEditingController(text: '');
-  final TextEditingController _emailController =
-      TextEditingController(text: '');
-  final TextEditingController _noHpController = TextEditingController(text: '');
+  TextEditingController namaController;
+  TextEditingController emailController;
+  TextEditingController noHpController;
   List<String> jk = [];
+  List<String> pendidikan = [];
+  List<String> status = [];
 
   @override
   Widget build(BuildContext context) {
-    _user = HomeState.watch(context).user;
-    _namaController.text = _user.nama ?? '';
+    // _user = HomeState.watch(context).user;
     jk = InformasiState.watch(context).jk;
+    pendidikan = InformasiState.watch(context).pendidikan;
+    status = InformasiState.watch(context).status;
+    String jkSelected = InformasiState.watch(context).jkSelected;
+    String pendidikanSelected =
+        InformasiState.watch(context).pendidikanSelected;
+    String statusSelected = InformasiState.watch(context).statusSelected;
 
     return SingleChildScrollView(
       child: Column(
@@ -27,7 +41,7 @@ class BiodataForm extends StatelessWidget {
           MyTextFormField(
             label: 'Nama Lengkap',
             hint: 'Nama Lengkap',
-            controller: _namaController,
+            controller: namaController,
             keyboardType: TextInputType.name,
           ),
           MyTextFormField(
@@ -57,11 +71,9 @@ class BiodataForm extends StatelessWidget {
                 ),
                 width: getWidth(context),
                 child: DropdownButton<String>(
-                  value: 'Laki-laki',
+                  value: jkSelected,
                   onChanged: (newValue) {
-                    // setState(() {
-                    //   selectedValue = newValue!;
-                    // });
+                    InformasiState.read(context).setJkSelected(newValue!);
                   },
                   items: jk.map((item) {
                     return DropdownMenuItem<String>(
@@ -76,13 +88,13 @@ class BiodataForm extends StatelessWidget {
           MyTextFormField(
             label: 'Alamat Email',
             hint: 'Alamat Email',
-            controller: _emailController,
+            controller: emailController,
             keyboardType: TextInputType.emailAddress,
           ),
           MyTextFormField(
             label: 'No HP',
             hint: 'No HP',
-            controller: _noHpController,
+            controller: noHpController,
             keyboardType: TextInputType.number,
           ),
           Column(
@@ -109,13 +121,12 @@ class BiodataForm extends StatelessWidget {
                 ),
                 width: getWidth(context),
                 child: DropdownButton<String>(
-                  value: 'Laki-laki',
+                  value: pendidikanSelected,
                   onChanged: (newValue) {
-                    // setState(() {
-                    //   selectedValue = newValue!;
-                    // });
+                    InformasiState.read(context)
+                        .setPendidikanSelected(newValue!);
                   },
-                  items: jk.map((item) {
+                  items: pendidikan.map((item) {
                     return DropdownMenuItem<String>(
                       value: item,
                       child: Text(item),
@@ -149,13 +160,11 @@ class BiodataForm extends StatelessWidget {
                 ),
                 width: getWidth(context),
                 child: DropdownButton<String>(
-                  value: 'Laki-laki',
+                  value: statusSelected,
                   onChanged: (newValue) {
-                    // setState(() {
-                    //   selectedValue = newValue!;
-                    // });
+                    InformasiState.read(context).setStatusSelected(newValue!);
                   },
-                  items: jk.map((item) {
+                  items: status.map((item) {
                     return DropdownMenuItem<String>(
                       value: item,
                       child: Text(item),
@@ -167,6 +176,17 @@ class BiodataForm extends StatelessWidget {
           ),
           ButtonWidget(
             onTap: () {
+              getIt<InfromasiViewModel>().doUpdateInformasiPribadi(
+                context,
+                InformasiPribadiPayload(
+                  pendidikan: pendidikanSelected,
+                  statusPernikahan: statusSelected,
+                  jenisKelamin: jkSelected,
+                  nama: namaController.text,
+                  email: emailController.text,
+                  noHP: noHpController.text,
+                ),
+              );
               InformasiState.read(context).setId(1);
             },
             label: 'Selanjutnya',

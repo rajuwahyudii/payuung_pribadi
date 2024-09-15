@@ -3,6 +3,7 @@ import 'package:payuung_pribadi/pages/home/model/explore_wellness_model.dart';
 import 'package:payuung_pribadi/pages/home/model/kategori_pilihan_model.dart';
 import 'package:payuung_pribadi/pages/home/model/produk_keuangan_model.dart';
 import 'package:payuung_pribadi/pages/home/model/user_model.dart';
+import 'package:payuung_pribadi/pages/informasi/models/informasi_pribadi_payload.dart';
 import 'package:provider/provider.dart';
 
 class HomeState extends ChangeNotifier {
@@ -17,6 +18,18 @@ class HomeState extends ChangeNotifier {
   ModelUser get user => _user;
   setUser(ModelUser user) {
     _user = user;
+    notifyListeners();
+  }
+
+  setInfromasiPribadi(InformasiPribadiPayload user) {
+    _user.nama = user.nama;
+    _user.tanggalLahir = user.tanggalLahir;
+    _user.jenisKelamin = user.jenisKelamin;
+    _user.email = user.email;
+    _user.noHP = user.noHP;
+    _user.pendidikan = user.pendidikan;
+    _user.statusPernikahan = user.statusPernikahan;
+
     notifyListeners();
   }
 
