@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:payuung_pribadi/pages/home/model/user_model.dart';
@@ -30,7 +32,9 @@ class ProfileView extends StatelessWidget {
           }
         }
 
-        // return doUpdateAvatar(File(pickedFile.path));
+        HomeState.read(context).setImageAvatar(
+          pickedFile.path,
+        );
       }
     }
 
@@ -69,14 +73,23 @@ class ProfileView extends StatelessWidget {
                       },
                       child: CircleAvatar(
                         radius: 30,
-                        backgroundColor: Colors.grey[300],
-                        child: Text(
-                          'A',
-                          style: const TextStyle(
-                            fontSize: 24,
-                            color: Colors.white,
-                          ),
-                        ),
+                        backgroundColor: _user.avatar != null
+                            ? Colors.transparent
+                            : Colors.grey[300],
+                        child: _user.avatar != null
+                            ? Image.file(
+                                File(
+                                  _user.avatar!,
+                                ),
+                                fit: BoxFit.fill,
+                              )
+                            : const Text(
+                                'IMG',
+                                style: const TextStyle(
+                                  fontSize: 24,
+                                  color: Colors.white,
+                                ),
+                              ),
                       ),
                     ),
                     const SizedBox(

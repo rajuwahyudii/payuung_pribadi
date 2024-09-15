@@ -17,6 +17,7 @@ class ModelUser {
   String? kecamatan;
   String? kelurahan;
   String? kodePos;
+  String? avatar;
 
   ModelUser({
     this.nama,
@@ -37,6 +38,7 @@ class ModelUser {
     this.kecamatan,
     this.kelurahan,
     this.kodePos,
+    this.avatar,
   });
 
   factory ModelUser.fromJson(Map<String, dynamic> json) => ModelUser(
@@ -58,6 +60,7 @@ class ModelUser {
         kecamatan: json["kecamatan"],
         kelurahan: json["kelurahan"],
         kodePos: json["kodePos"],
+        avatar: json["avatar"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -79,5 +82,6 @@ class ModelUser {
         "kecamatan": kecamatan,
         "kelurahan": kelurahan,
         "kodePos": kodePos,
+        "avatar": avatar,
       };
 }

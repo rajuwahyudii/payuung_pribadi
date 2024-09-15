@@ -6,7 +6,6 @@ import 'package:payuung_pribadi/pages/home/model/user_model.dart';
 import 'package:payuung_pribadi/pages/informasi/models/alamat_pribadi_payload.dart';
 import 'package:payuung_pribadi/pages/informasi/models/data_perusahaan_payload.dart';
 import 'package:payuung_pribadi/pages/informasi/models/informasi_pribadi_payload.dart';
-import 'package:payuung_pribadi/shared/widgets/mollecules/alamat_pribadi.dart';
 import 'package:provider/provider.dart';
 
 class HomeState extends ChangeNotifier {
@@ -54,6 +53,11 @@ class HomeState extends ChangeNotifier {
     _user.jabatan = user.jabatan;
     _user.lamaBekerja = user.lamaBekerja;
 
+    notifyListeners();
+  }
+
+  setImageAvatar(String path) {
+    _user.avatar = path;
     notifyListeners();
   }
 
