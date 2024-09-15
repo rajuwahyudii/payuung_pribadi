@@ -6,6 +6,7 @@ import 'package:payuung_pribadi/pages/informasi/view_model/infromasi_view_model.
 import 'package:payuung_pribadi/shared/screen_size.dart';
 import 'package:payuung_pribadi/shared/widgets/atoms/button_widget.dart';
 import 'package:payuung_pribadi/shared/widgets/atoms/search.dart';
+import 'package:payuung_pribadi/shared/widgets/mollecules/alert.dart';
 
 class InformasiPerusahaanForm extends StatelessWidget {
   InformasiPerusahaanForm({
@@ -118,17 +119,29 @@ class InformasiPerusahaanForm extends StatelessWidget {
             ],
           ),
           ButtonWidget(
-            onTap: () {
-              getIt<InfromasiViewModel>().doUpdateDataPerusahaan(
-                context,
-                DataPerusahaanPayload(
-                  namaUsaha: namaUsahaController.text,
-                  alamatUsaha: alamatUsahaController.text,
-                  jabatan: jabatanSelected,
-                  lamaBekerja: lamaBekerjaSelected,
-                ),
-              );
-              Navigator.pop(context);
+            onTap: () async {
+              if (namaUsahaController.text != '' &&
+                  alamatUsahaController.text != '') {
+                getIt<InfromasiViewModel>().doUpdateDataPerusahaan(
+                  context,
+                  DataPerusahaanPayload(
+                    namaUsaha: namaUsahaController.text,
+                    alamatUsaha: alamatUsahaController.text,
+                    jabatan: jabatanSelected,
+                    lamaBekerja: lamaBekerjaSelected,
+                  ),
+                );
+                await successAlert(
+                  context,
+                  'Biodata TErsimpan',
+                );
+                Navigator.pop(context);
+              } else {
+                await failedAlert(
+                  context,
+                  'Data Tidak Lengkap',
+                );
+              }
             },
             label: 'Simpan',
             width: getWidth(context),

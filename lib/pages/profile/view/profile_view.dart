@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:payuung_pribadi/pages/home/model/user_model.dart';
 import 'package:payuung_pribadi/pages/home/state/home_state.dart';
 import 'package:payuung_pribadi/pages/informasi/state/informasi_state.dart';
@@ -14,6 +15,25 @@ class ProfileView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final imagePicker = ImagePicker();
+    Future getImage(ImageSource source) async {
+      Navigator.pop(context);
+      final pickedFile = await imagePicker.pickImage(source: source);
+      if (pickedFile != null) {
+        final bytes = (await pickedFile.readAsBytes()).lengthInBytes;
+        final kb = bytes / 1024;
+        final mb = kb / 1024;
+
+        if (mb > 1) {
+          if (context.mounted) {
+            return failedAlert(context, 'Upload File Maksimal 1 MB');
+          }
+        }
+
+        // return doUpdateAvatar(File(pickedFile.path));
+      }
+    }
+
     _user = _user = HomeState.watch(context).user;
     return Scaffold(
       appBar: AppBar(
@@ -36,8 +56,12 @@ class ProfileView extends StatelessWidget {
                       onTap: () async {
                         await doubleAlert(
                           context,
-                          onPressedLeft: () {},
-                          onPressedRight: () {},
+                          onPressedLeft: () {
+                            getImage(ImageSource.camera);
+                          },
+                          onPressedRight: () {
+                            getImage(ImageSource.gallery);
+                          },
                           title: 'Ganti Gambar?',
                           titleButtonLeft: 'Camera',
                           titleButtonRight: 'Gambar',

@@ -19,7 +19,6 @@ class BiodataForm extends StatelessWidget {
     required this.noHpController,
     super.key,
   });
-  ModelUser _user = ModelUser();
   TextEditingController namaController;
   TextEditingController emailController;
   TextEditingController noHpController;
