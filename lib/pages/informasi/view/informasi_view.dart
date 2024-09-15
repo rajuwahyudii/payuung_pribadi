@@ -21,6 +21,9 @@ class InformasiView extends StatelessWidget {
   TextEditingController _kecamatanController = TextEditingController(text: '');
   TextEditingController _kelurahanController = TextEditingController(text: '');
   TextEditingController _kodePosController = TextEditingController(text: '');
+  TextEditingController _namaUsahaController = TextEditingController(text: '');
+  TextEditingController _alamatUsahaController =
+      TextEditingController(text: '');
 
   InformasiView({super.key});
   int _currentIndex = 0;
@@ -99,7 +102,10 @@ class InformasiView extends StatelessWidget {
                           nikController: _nikController,
                           provinsiController: _provinsiController,
                         )
-                      : InformasiPerusahaanForm(),
+                      : InformasiPerusahaanForm(
+                          namaUsahaController: _namaUsahaController,
+                          alamatUsahaController: _alamatUsahaController,
+                        ),
             ),
           ],
         ),

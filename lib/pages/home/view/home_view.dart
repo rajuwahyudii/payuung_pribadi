@@ -108,7 +108,7 @@ class HomeView extends StatelessWidget {
                       crossAxisSpacing: 16.0,
                       children: List.generate(_produkKeuangan.length, (index) {
                         return IconMenu(
-                          icon: 'assets/icons/family.svg',
+                          icon: _produkKeuangan[index].icon!,
                           label: _produkKeuangan[index].label!,
                         );
                       }),
@@ -121,13 +121,13 @@ class HomeView extends StatelessWidget {
                       shrinkWrap: true,
                       crossAxisCount: 4,
                       childAspectRatio: 1.0,
-                      padding: EdgeInsets.all(16.0),
+                      padding: const EdgeInsets.all(16.0),
                       mainAxisSpacing: 16.0,
                       crossAxisSpacing: 16.0,
                       children:
                           List.generate(_kategoriKeuangan.length, (index) {
                         return IconMenu(
-                          icon: 'assets/icons/family.svg',
+                          icon: _kategoriKeuangan[index].icon!,
                           label: _kategoriKeuangan[index].label!,
                         );
                       }),
@@ -140,7 +140,7 @@ class HomeView extends StatelessWidget {
                       shrinkWrap: true,
                       crossAxisCount: 2,
                       childAspectRatio: 1.0,
-                      padding: EdgeInsets.all(16.0),
+                      padding: const EdgeInsets.all(16.0),
                       mainAxisSpacing: 16.0,
                       crossAxisSpacing: 16.0,
                       children: List.generate(_exploreWillness.length, (index) {

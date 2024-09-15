@@ -1,6 +1,8 @@
+import 'package:flutter/material.dart';
+
 class ModelKategoriKeuangan {
   String? label;
-  String? icon;
+  IconData? icon;
 
   ModelKategoriKeuangan({
     this.label,

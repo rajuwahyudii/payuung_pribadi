@@ -3,6 +3,7 @@ import 'package:payuung_pribadi/pages/home/model/explore_wellness_model.dart';
 import 'package:payuung_pribadi/pages/home/model/kategori_pilihan_model.dart';
 import 'package:payuung_pribadi/pages/home/model/produk_keuangan_model.dart';
 import 'package:payuung_pribadi/pages/home/model/user_model.dart';
+import 'package:payuung_pribadi/pages/informasi/models/data_perusahaan_payload.dart';
 import 'package:payuung_pribadi/pages/informasi/models/informasi_pribadi_payload.dart';
 import 'package:provider/provider.dart';
 
@@ -33,20 +34,34 @@ class HomeState extends ChangeNotifier {
     notifyListeners();
   }
 
+  setDataPerusahaan(DataPerusahaanPayload user) {
+    _user.namaUsaha = user.namaUsaha;
+    _user.alamatUsaha = user.alamatUsaha;
+    _user.jabatan = user.jabatan;
+    _user.lamaBekerja = user.lamaBekerja;
+
+    notifyListeners();
+  }
+
   final List<ModelProdukKeuangan> _produkKeuangan = [
     ModelProdukKeuangan(
+      icon: Icons.family_restroom,
       label: 'Urun',
     ),
     ModelProdukKeuangan(
+      icon: Icons.person_2,
       label: 'Pembiayaan Porsi Haji',
     ),
     ModelProdukKeuangan(
+      icon: Icons.face,
       label: 'Finansial Check Up',
     ),
     ModelProdukKeuangan(
+      icon: Icons.car_crash,
       label: 'Asuransi Mobil',
     ),
     ModelProdukKeuangan(
+      icon: Icons.money,
       label: 'Asuransi Properti',
     ),
   ];
@@ -54,27 +69,35 @@ class HomeState extends ChangeNotifier {
 
   final List<ModelKategoriKeuangan> _kategoriKeuangan = [
     ModelKategoriKeuangan(
+      icon: Icons.holiday_village,
       label: 'Hobi',
     ),
     ModelKategoriKeuangan(
+      icon: Icons.safety_check,
       label: 'Merchandise',
     ),
     ModelKategoriKeuangan(
+      icon: Icons.heart_broken,
       label: 'Gaya Hidup Sehat',
     ),
     ModelKategoriKeuangan(
+      icon: Icons.chat,
       label: 'Konseling & Rohani',
     ),
     ModelKategoriKeuangan(
+      icon: Icons.branding_watermark,
       label: 'Self Development',
     ),
     ModelKategoriKeuangan(
+      icon: Icons.card_giftcard,
       label: 'Perencanaan Keuangan',
     ),
     ModelKategoriKeuangan(
+      icon: Icons.masks,
       label: 'Konsultasi Medis',
     ),
     ModelKategoriKeuangan(
+      icon: Icons.other_houses,
       label: 'Lihat Semua',
     ),
   ];
@@ -82,35 +105,35 @@ class HomeState extends ChangeNotifier {
 
   final List<ModelExploreWellness> _exploreWillness = [
     ModelExploreWellness(
-      label: '1',
+      label: 'H&M',
       icon: 'https://iconape.com/wp-content/png_logo_vector/hm-logo-2.png',
     ),
     ModelExploreWellness(
-      label: '2',
-      icon: 'https://iconape.com/wp-content/png_logo_vector/hm-logo-2.png',
+      label: 'Indomaret',
+      icon:
+          'https://upload.wikimedia.org/wikipedia/commons/9/9d/Logo_Indomaret.png',
     ),
     ModelExploreWellness(
-      label: '3',
-      icon: 'https://iconape.com/wp-content/png_logo_vector/hm-logo-2.png',
+      label: 'Alfamart',
+      icon:
+          'https://assets.promediateknologi.id/crop/0x0:0x0/750x500/webp/photo/p1/10/2023/09/29/rsz_logo_alfamart-1513131536.jpg',
     ),
     ModelExploreWellness(
-      label: '4',
-      icon: 'https://iconape.com/wp-content/png_logo_vector/hm-logo-2.png',
+      label: 'Tencent',
+      icon:
+          'https://img.tek.id/img/content/2020/03/29/27359/tencent-dan-huawei-ingin-buat-platform-streaming-game-K5MLIyZg3X.jpg',
     ),
     ModelExploreWellness(
-      label: '5',
-      icon: 'https://iconape.com/wp-content/png_logo_vector/hm-logo-2.png',
+      label: 'Riot',
+      icon: 'https://esports.id/img/article/965220230123084955.jpg',
     ),
     ModelExploreWellness(
       label: '6',
-      icon: 'https://iconape.com/wp-content/png_logo_vector/hm-logo-2.png',
+      icon:
+          'https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/570/capsule_616x353.jpg?t=1724428927',
     ),
     ModelExploreWellness(
-      label: '7',
-      icon: 'https://iconape.com/wp-content/png_logo_vector/hm-logo-2.png',
-    ),
-    ModelExploreWellness(
-      label: '8',
+      label: 'Dota',
       icon: 'https://iconape.com/wp-content/png_logo_vector/hm-logo-2.png',
     ),
   ];

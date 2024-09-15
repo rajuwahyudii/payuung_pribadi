@@ -53,6 +53,34 @@ class InformasiState extends ChangeNotifier {
     notifyListeners();
   }
 
+  final List<String> _jabatan = [
+    'Staf',
+    'Non-Staf',
+  ];
+  List<String> get jabatan => _jabatan;
+
+  String _jabatanSelected = 'Staf';
+  String get jabatanSelected => _jabatanSelected;
+  setJabatanSelected(String jabatanSelected) {
+    _jabatanSelected = jabatanSelected;
+    notifyListeners();
+  }
+
+  final List<String> _lamaBekerja = [
+    '< 6 Bulan',
+    '6 Bulan - 1 Tahun',
+    '1 - 2 Tahun',
+    '> 2 Tahun',
+  ];
+  List<String> get lamaBekerja => _lamaBekerja;
+
+  String _lamaBekerjaSelected = '< 6 Bulan';
+  String get lamaBekerjaSelected => _lamaBekerjaSelected;
+  setLamaBekerjaSelected(String lamaBekerjaSelected) {
+    _lamaBekerjaSelected = lamaBekerjaSelected;
+    notifyListeners();
+  }
+
   static InformasiState read(context) {
     InformasiState providers = Provider.of<InformasiState>(
       context,

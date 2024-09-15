@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 class IconMenu extends StatelessWidget {
   final Color txtColor;
   final Color iconColor;
   final double margin;
-  final String icon;
+  final IconData icon;
   final String label;
 
   final double iconSize;
@@ -27,10 +26,10 @@ class IconMenu extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          SvgPicture.asset(
+          Icon(
             icon,
-            width: iconSize,
-            color: iconColor,
+            size: 20,
+            color: Colors.green,
           ),
           Text(
             label,
